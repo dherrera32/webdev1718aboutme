@@ -1,0 +1,58 @@
+<DOCTYPE html>
+    <html>
+
+    <body style="background-color:Thistle;">
+
+        <head>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+            </script>
+            <script>
+                $(document).ready(function() {
+                    $("button").click(function() {
+                        //console.log("clicked");
+                        $.ajax({
+                            url: "https://data.cityofchicago.org/resource/6qug-dskz.json",
+                            success: function(result) {
+                                console.log(result);
+                                var output = "";
+
+                                $.each(result, function(index, value) {
+                                    //console.log(index + " " + value);
+
+                                    //output += "<div class='output'>" +  value.month_name + " " + value.dates + "</div>";
+
+                                    $("#results").append(value.month_name + " " + value.dates + "</div>")
+
+                                });
+                                //$("#results").html(output);
+                            }
+                        })
+                    });
+                });
+            </script>
+
+            <style>
+                .output {
+                    color: red;
+                }
+            </style>
+        </head>
+
+    </body>
+
+    <div id="div1">
+        <h1 style="border: 2px solid DarkOrchid;
+        text-align: center;
+        font-family: Impact;
+        font-size: 40px">Sanitation 2017</h1>
+    </div>
+    <p style="background-color:Lavender;
+     font-family: Arial Black;
+     font-size: 17px;">The data below is about the street sweeping of 2017. You would be able to see when will the street be sweep. It shows the month and the days. Click below for information.</p>
+    <button>Dates</button>
+    <div id="results">
+
+    </div>
+    </body>
+
+    </html>
