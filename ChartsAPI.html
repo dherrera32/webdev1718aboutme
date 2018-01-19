@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <h1 style="font-family:Impact;
+                text-align:center;">Abondoned Vehicle Requests</h1>
+    <p style="font-family:Comic Sans MS;
+    background:LightGray;">The information shown in this page, represent the number of abondoned vehicles requests from diffrent vehicle models. The pie chart below holds an approximate estimate of the data. The vehicles not show below had less than 1,000 requests.</p>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Cars', 'Types'],
+                ['Chevrolet', 26098],
+                ['Ford', 23855],
+                ['Dodge', 10651],
+                ['Toyota', 10346],
+                ['Honda', 10281],
+                ['Nissan', 8051],
+                ['Pontiac', 6456],
+                ['Unlisted Make', 5581],
+                ['Buick', 5130],
+                ['Chrysler', 4879],
+                ['Volkswagen', 3407],
+                ['Jeep/Cherokee', 3334],
+                ['Oldsmobile', 3116],
+                ['General Motors Corp', 3328],
+                ['Cadillac', 3817],
+                ['Mercury', 2681],
+                ['Bmw', 2218],
+                ['Hyundai', 2406],
+                ['Mercedes', 2210],
+                ['Lincoln', 2212],
+                ['Mazda', 1935],
+                ['Saturn', 1820]
+            ]);
+
+            var options = {
+                title: 'Types of Abondoned of Vehicles',
+                legend: 'none',
+                pieSliceText: 'label',
+                slices: {
+                    4: { offset: 0.2 },
+                    12: { offset: 0.3 },
+                    14: { offset: 0.4 },
+                    15: { offset: 0.5 },
+                },
+            };
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            chart.draw(data, options);
+        }
+    </script>
+
+
+</head>
+
+<body background="https://st.hzcdn.com/simgs/9fc2545205b008bb_8-9940/home-design.jpg">
+    <div id="piechart" style="width: 700px; height: 400px;"></div>
+
+</body>
+
+</html>
