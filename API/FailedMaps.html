@@ -2,32 +2,91 @@
 <html>
 
 <head>
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+  <meta charset="utf-8">
+  <title>Marker Clustering</title>
   <style>
+    /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
     #map {
-      height: 300px;
-      width: 90%;
+      height: 100%;
+    }
+
+    /* Optional: Makes the sample page fill the window. */
+
+    html,
+    body {
+      height: 80%;
+      margin: 0%;
+      padding: 5%;
     }
   </style>
 </head>
 
-<body>
-  <h1>Sanitation</h1>
-  <h3>Street Sweeping 2017 Map</h3>
+<body background="https://secure.img2-fg.wfcdn.com/im/59732099/resize-h299-p1-w299%5Ecompr-r85/3636/36367193/Brothers+and+Sisters+V+Main+Street+33%27+x+20.5%22+Children+Roll+Wallpaper.jpg">
+  <h1 style="font-family:Arial Black;
+             color:DodgerBlue;
+             font-size:35px">Public Safety</h1>
+  <p style="font-family:Arial;
+            font-size: 17px;
+            color:DodgerBlue;
+            background:White;">The map shown below is displaying where are some police stations located. Police stations would help increased the public safety. The police stations shown below are located around the city of Chicago. The map shows more than 20 stations.</p>
   <div id="map"></div>
   <script>
     function initMap() {
-      var uluru = { lat: -25.363, lng: 131.044 };
+
       var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 4,
-        center: uluru
+        zoom: 3,
+        center: { lat: 41.8583725929, lng: -87.627356171 }
       });
-      var marker = new google.maps.Marker({
-        position: uluru,
-        map: map
+
+      // Create an array of alphabetical characters used to label the markers.
+      var labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+      // Add some markers to the map.
+      // Note: The code uses the JavaScript Array.prototype.map() method to
+      // create an array of markers based on a given "locations" array.
+      // The map() method here has nothing to do with the Google Maps API.
+      var markers = locations.map(function(location, i) {
+        return new google.maps.Marker({
+          position: location,
+          label: labels[i % labels.length]
+        });
       });
+
+      // Add a marker clusterer to manage the markers.
+      var markerCluster = new MarkerClusterer(map, markers, { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
     }
+    var locations = [
+      { lat: 41.8583725929, lng: -87.627356171 },
+      { lat: 41.8018110912, lng: -87.6305601801 },
+      { lat: 41.7664308925, lng: -87.6057478606 },
+      { lat: 41.7079332906, lng: -87.5683491228 },
+      { lat: 41.6927233639, lng: -87.6045058667 },
+      { lat: 41.7521368378, lng: -87.6442289066 },
+      { lat: 41.7796315359, lng: -87.6608870173 },
+      { lat: 41.778987189, lng: -87.7088638153 },
+      { lat: 41.8373944311, lng: -87.6464077068 },
+      { lat: 41.8566845327, lng: -87.708381958 },
+      { lat: 41.8735822883, lng: -87.705488126 },
+      { lat: 41.8629766244, lng: -87.6569725149 },
+      { lat: 41.9211033246, lng: -87.6974518223 },
+      { lat: 41.8800834614, lng: -87.768199889 },
+      { lat: 41.9740944511, lng: -87.7661488432 },
+      { lat: 41.9660534171, lng: -87.728114561 },
+      { lat: 41.9032416531, lng: -87.6433521393 },
+      { lat: 41.9474004564, lng: -87.651512018 },
+      { lat: 41.9795495131, lng: -87.6928445094 },
+      { lat: 41.6914347795, lng: -87.6685203937 },
+      { lat: 41.9997634842, lng: -87.6713242922 },
+      { lat: 41.9186088912, lng: -87.765574479 },
+      { lat: 41.8307016873, lng: -87.6233953459 },
+    ]
   </script>
-  <script async defer src="https://data.cityofchicago.org/resource/bvmw-x5d2.json">
+  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+  </script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBptoPZ36rLxaXNIIHo-fMD0RAdb66_UbM&callback=initMap">
   </script>
 </body>
 
