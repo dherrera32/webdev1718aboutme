@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+<canvas id="myCanvas" width="400" height="400"></canvas>
+
+<body background="https://s-media-cache-ak0.pinimg.com/originals/a8/17/da/a817da9979f09587bb475330adb14525.png">
+    <script type="text/javascript" src="https://s3.amazonaws.com/codecademy-content/courses/hour-of-code/js/bubbles.js"></script>
+    <script type="text/javascript" src="main.js"></script>
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        var canvas = document.querySelector("#myCanvas");
+        var context = canvas.getContext("2d");
+
+        context.fillText("D.H!", 50, 125);
+        context.strokeText("D.H!", 55, 275);
+        context.strokeText("D.H!", 100, 25);
+        context.strokeText("D.H!", 370, 225);
+        context.fillText("D.H!", 360, 380);
+        context.fillText("D.H!", 270, 100);
+    </script>
+    <script>
+        var canvas = document.querySelector("#myCanvas");
+        var context = canvas.getContext("2d");
+
+        context.moveTo(160, 130);
+        context.lineTo(150, 275);
+        context.lineTo(250, 230);
+        context.closePath();
+        context.stroke();
+    </script>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(260, 130);
+        ctx.lineTo(260, 275);
+        ctx.stroke();
+    </script>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(260, 230);
+        ctx.lineTo(330, 230);
+        ctx.stroke();
+    </script>
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.moveTo(330, 130);
+        ctx.lineTo(330, 275);
+        ctx.stroke();
+    </script>
+
+    <h1 class="ml15">
+        <span class="word">D</span>
+        <span class="word">H</span>
+        <span class="word">S</span>
+    </h1>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <style>
+        .ml15 {
+            font-weight: 800;
+            font-size: 3.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+
+        .ml15 .word {
+            display: inline-block;
+            line-height: 1em;
+        }
+    </style>
+    <script>
+        anime.timeline({ loop: true })
+            .add({
+                targets: '.ml15 .word',
+                scale: [14, 1],
+                opacity: [0, 1],
+                easing: "easeOutCirc",
+                duration: 800,
+                delay: function(el, i) {
+                    return 800 * i;
+                }
+            }).add({
+                targets: '.ml15',
+                opacity: 0,
+                duration: 1000,
+                easing: "easeOutExpo",
+                delay: 1000
+            });
+    </script>
+</body>
+
+</html>
