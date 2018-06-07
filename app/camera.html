@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+    <script src="../geolocation-marker.js"></script>
+</head>
+<style>
+    #map {
+        height: 1000px;
+        width: 1000px;
+    }
+
+    html,
+    body {
+        height: 100px;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<body>
+    <div class="jumbotron">
+        <h1 style="text-align:center;font-size:200%;">Darlene Herrera</h1>
+    </div>
+    <input type="file" accept="image/*" capture="camera" />
+    <video id="video" width="500" height="480" autoplay></video>
+    <button id="snap">Snap Photo</button>
+    <canvas id="canvas" width="500" height="480"></canvas>
+    <a href="tel:+" class="button om-trigger-conversion">Click to Call</a>
+    <hr>
+    <div id="map"></div>
+    <hr>
+
+    <button onclick="fullscreen()">Click to go fullscreen</button>
+
+
+</body>
+
+<script>
+    var video = document.getElementById('video');
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
+        });
+    }
+
+
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var video = document.getElementById('video');
+
+
+    document.getElementById("snap").addEventListener("click", function() {
+        context.drawImage(video, 0, 0, 640, 480);
+    });
+</script>
+<script>
+    function fullscreen() {
+        if ((document.fullScreenElement && document.fullScreenElement !== null) ||
+            (!document.mozFullScreen && !document.webkitIsFullScreen)) {
+            if (document.documentElement.requestFullScreen) {
+                document.documentElement.requestFullScreen();
+            }
+            else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            }
+            else if (document.documentElement.webkitRequestFullScreen) {
+                document.documentElement.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+            }
+        }
+        else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            }
+            else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            }
+            else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+        }
+    }
+</script>
+<script>
+    var map, infoWindow;
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 6
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+            }, function() {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        }
+        else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBptoPZ36rLxaXNIIHo-fMD0RAdb66_UbM&callback=initMap">
+</script>
+
+<script>
+    function deviceOrientationListener(event) {
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+
+        ctx.clearRect(0, 0, c.width, c.height);
+        ctx.fillStyle = "#FF7777";
+        ctx.font = "14px Verdana";
+        ctx.fillText("Alpha: " + Math.Round(event.alpha), 10, 20);
+        ctx.beginPath();
+        ctx.moveTo(180, 75);
+        ctx.lineTo(210, 75);
+        ctx.arc(180, 75, 60, 0, event.alpha * Math.PI / 180);
+        ctx.fill();
+
+        ctx.fillStyle = "#FF6600";
+        ctx.fillText("Beta: " + Math.round(event.beta), 10, 140);
+        ctx.beginPath();
+        ctx.fillRect(180, 150, event.beta, 90);
+
+        ctx.fillStyle = "#FF0000";
+        ctx.fillText("Gamma: " + Math.round(event.gamma), 10, 270);
+        ctx.beginPath();
+        ctx.fillRect(90, 340, 180, event.gamma);
+    }
+
+    if (window.DeviceOrientationEvent) {
+        window.addEventListener("deviceorientation", deviceOrientationListener);
+    }
+    else {
+        alert("Sorry, your browser doesn't support Device Orientation");
+    }
+</script>
+
+
+
+</html>
